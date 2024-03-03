@@ -2,28 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveObject : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 10.0f;
+    // ความเร็วในการเคลื่อนที่
+    public float moveSpeed = 5.0f;
 
-    private Rigidbody rigidbody;
+    // Rigidbody ของ Object
+    private Rigidbody rb;
 
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        // เก็บ Rigidbody ของ Object ไว้
+        rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
     {
-        // รับ Input แป้นพิมพ์
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        // รับค่า Input จากคีย์บอร์ด
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-        // สร้าง Vector3 เก็บค่าความเร็ว
-        Vector3 direction = new Vector3(horizontal, 0, vertical);
+        // คำนวณทิศทางการเคลื่อนที่
+        Vector3 moveDirection = new Vector3(horizontalInput, 0.0f, verticalInput);
 
-        // เคลื่อนที่ Rigidbody โดยใช้ AddForce
-        rigidbody.AddForce(direction * speed * Time.deltaTime);
+        // เคลื่อนที่ Object โดยใช้ Rigidbody
+        rb.AddForce(moveDirection * moveSpeed);
     }
 }
+
 
